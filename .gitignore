@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### Database Password ###
-/application.properties
+application.properties
