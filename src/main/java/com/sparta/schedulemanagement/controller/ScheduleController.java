@@ -40,6 +40,14 @@ public class ScheduleController {
         return responseDtoList;
     }
 
+    @GetMapping("/schedule/{id}")
+    public ScheduleResponseDto getSchedule(@PathVariable Long id) {
+        // Entity -> ResponseDto
+        ScheduleResponseDto responseDto = new ScheduleResponseDto(schedules.get(id));
+
+        return responseDto;
+    }
+
     @PutMapping("/schedule/{id}")
     public Long updateSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
         // 해당 일정이 DB에 존재하는지 확인
