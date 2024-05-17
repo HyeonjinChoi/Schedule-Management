@@ -54,6 +54,10 @@ public class ScheduleController {
         if (schedules.containsKey(id)) {
             // 해당 일정 가져오기
             Schedule schedule = schedules.get(id);
+            // 비밀번호 검증
+            if (!Objects.equals(schedule.getPassword(), requestDto.getPassword())){
+                throw new IllegalArgumentException("비밀번호를 잘못 입력했습니다.");
+            }
             // schedule 수정
             schedule.update(requestDto);
             return id;
@@ -63,9 +67,15 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/schedule/{id}")
-    public Long deleteSchedule(@PathVariable Long id) {
+    public Long deleteSchedule(@PathVariable Long id, @RequestParam String password) {
         // 해당 일정이 DB에 존재하는지 확인
         if (schedules.containsKey(id)) {
+            // 해당 일정 가져오기
+            Schedule schedule = schedules.get(id);
+            // 비밀번호 검증
+            if (!Objects.equals(schedule.getPassword(), password)){
+                throw new IllegalArgumentException("비밀번호를 잘못 입력했습니다.");
+            }
             // 해당 일정 삭제
             schedules.remove(id);
             return id;
