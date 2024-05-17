@@ -11,6 +11,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class Schedule {
+    private Long id;
     private String title;
     private String contents;
     private String writer;
