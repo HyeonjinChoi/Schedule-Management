@@ -3,8 +3,10 @@ package com.sparta.schedulemanagement.controller;
 import com.sparta.schedulemanagement.dto.ScheduleRequestDto;
 import com.sparta.schedulemanagement.dto.ScheduleResponseDto;
 import com.sparta.schedulemanagement.entity.Schedule;
+import org.springframework.cglib.core.Local;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,7 +23,7 @@ public class ScheduleController {
         Long maxId = schedules.size() > 0 ? Collections.max(schedules.keySet()) + 1 : 1;
         schedule.setId(maxId);
         // 날짜 저장
-        schedule.setDate(new Date());
+        schedule.setDate(LocalDate.now());
         // DB 저장
         schedules.put(schedule.getId(), schedule);
         // Entity -> ResponseDto
@@ -35,6 +37,7 @@ public class ScheduleController {
         // Schedule List -> ResponseDto List
         List<ScheduleResponseDto> responseDtoList = schedules.values().stream()
                 .map(ScheduleResponseDto::new)
+                .sorted(Comparator.comparing(ScheduleResponseDto::getDate).reversed())
                 .toList();
 
         return responseDtoList;
