@@ -39,4 +39,18 @@ public class ScheduleController {
 
         return responseDtoList;
     }
+
+    @PutMapping("/schedule/{id}")
+    public Long updateSchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
+        // 해당 일정이 DB에 존재하는지 확인
+        if (schedules.containsKey(id)) {
+            // 해당 일정 가져오기
+            Schedule schedule = schedules.get(id);
+            // schedule 수정
+            schedule.update(requestDto);
+            return id;
+        } else {
+            throw new IllegalArgumentException("해당 일정은 존재하지 않습니다.");
+        }
+    }
 }

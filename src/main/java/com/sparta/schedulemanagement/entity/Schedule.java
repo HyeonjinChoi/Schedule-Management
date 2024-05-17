@@ -1,6 +1,7 @@
 package com.sparta.schedulemanagement.entity;
 
 import com.sparta.schedulemanagement.dto.ScheduleRequestDto;
+import com.sparta.schedulemanagement.dto.ScheduleResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,13 @@ public class Schedule {
     private Date date;
 
     public Schedule(ScheduleRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.contents = requestDto.getContents();
+        this.writer = requestDto.getWriter();
+        this.password = requestDto.getPassword();
+    }
+
+    public void update(ScheduleRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
         this.writer = requestDto.getWriter();
