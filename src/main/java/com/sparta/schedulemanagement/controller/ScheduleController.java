@@ -53,4 +53,16 @@ public class ScheduleController {
             throw new IllegalArgumentException("해당 일정은 존재하지 않습니다.");
         }
     }
+
+    @DeleteMapping("/schedule/{id}")
+    public Long deleteSchedule(@PathVariable Long id) {
+        // 해당 일정이 DB에 존재하는지 확인
+        if (schedules.containsKey(id)) {
+            // 해당 일정 삭제
+            schedules.remove(id);
+            return id;
+        } else {
+            throw new IllegalArgumentException("해당 일정은 존재하지 않습니다.");
+        }
+    }
 }
