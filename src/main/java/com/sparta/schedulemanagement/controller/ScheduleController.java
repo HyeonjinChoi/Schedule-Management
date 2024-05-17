@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -26,5 +27,15 @@ public class ScheduleController {
         ScheduleResponseDto responseDto = new ScheduleResponseDto(schedule);
 
         return responseDto;
+    }
+
+    @GetMapping("/schedule")
+    public List<ScheduleResponseDto> getSchedules() {
+        // Schedule List -> ResponseDto List
+        List<ScheduleResponseDto> responseDtoList = schedules.stream()
+                .map(ScheduleResponseDto::new)
+                .toList();
+
+        return responseDtoList;
     }
 }
